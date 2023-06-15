@@ -20,8 +20,6 @@ public class EmailService {
         message.setSubject(subject);
         message.setText(body);
         mailSender.send(message);
-
-
     }
 
     public void sendAssignmentMailToNGO(String toEmail, Assignment assignment) {
@@ -29,7 +27,7 @@ public class EmailService {
         message.setTo(toEmail);
         message.setSubject("Assignment - Food Delivery for Member with request Id: #" + assignment.getRequestFood().getId().toUpperCase());
 
-        String body = """    
+        String body = """  
                 Dear %s,
                                 
                 Informing you about the assignment of food delivery for a specific member in need. The details of the assignment are as follows:
@@ -80,7 +78,7 @@ public class EmailService {
                 We understand the importance of this service, especially during these challenging times, and our team will make every effort to ensure a smooth and timely delivery of the food items to your doorstep. We kindly request your cooperation in being available at the specified address during the delivery timeframe.
                                 
                 If you have any specific dietary requirements or preferences, please let us know in advance so that we can accommodate them to the best of our ability.
-                                
+                                      
                 We would like to express our gratitude for reaching out to us and allowing us to assist you during this time. If you have any further questions or need additional information, please do not hesitate to contact us. Your satisfaction and well-being are of utmost importance to us.
                                 
                 Thank you for placing your trust us. We look forward to serving you and making a positive impact together.
@@ -90,7 +88,6 @@ public class EmailService {
                 Administrator
                 Food Recycling Team
                 """.formatted(
-
                 assignment.getRequestFood().getMember().getName(),
                 assignment.getNgo().getName().toUpperCase(),
                 assignment.getNgo().getCity(),

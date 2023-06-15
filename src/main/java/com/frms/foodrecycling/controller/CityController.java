@@ -23,13 +23,15 @@ public class CityController {
 
     @GetMapping("/cities/{cityId}")
     public ResponseEntity<?> getSingleCity(@PathVariable Integer cityId){
-        City city = cityRepository.findById(cityId)
-                .orElseThrow(() -> new RuntimeException("City Not Found!!"));
+        var city = cityRepository.findById(cityId).orElseThrow(()->new RuntimeException("City not found"));
         return new ResponseEntity<>(city , HttpStatus.OK);
     }
 
     @PostMapping("/cities")
     public ResponseEntity<?> createCity(@RequestBody City city){
+        if(cityRepository.existsByName(city.getName())){
+            throw new RuntimeException("City already exists!!");
+        }
         return new ResponseEntity<>(cityRepository.save(city) , HttpStatus.CREATED);
     }
 

@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +20,8 @@ public class RequestFood {
 
     @Id
     private String id;
+
+    private LocalDateTime dateTime;
 
     private String foodType;
 

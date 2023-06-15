@@ -39,6 +39,9 @@ public class AreaController {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() -> new RuntimeException("City Not Found!!"));
         area.setCity(city);
+        if(areaRepository.existsByName(city.getName())){
+            throw new RuntimeException("Area already exists!!");
+        }
         return new ResponseEntity<>(areaRepository.save(area) , HttpStatus.CREATED);
     }
 

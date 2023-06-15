@@ -11,6 +11,8 @@ import com.frms.foodrecycling.repository.RequestFoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +45,7 @@ public class RequestFoodService {
     public RequestFood createRequest(RequestFood requestFood, Integer memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member Not Found"));
+        requestFood.setDateTime(LocalDateTime.now());
         if(requestFoodRepository.existsByMember(member)){
             if(requestFoodRepository.getExistingStatus(member).equals("pending")){
                 throw new RuntimeException("Previous request is still pending!!");
