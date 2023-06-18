@@ -36,7 +36,7 @@ public class Member {
 
     private String user;
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",cascade = CascadeType.DETACH,fetch = FetchType.LAZY , orphanRemoval = true)
     @JsonIgnore
     private List<RequestFood> requestFoods = new ArrayList<>();
 

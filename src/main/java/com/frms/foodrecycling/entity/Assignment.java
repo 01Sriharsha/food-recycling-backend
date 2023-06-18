@@ -27,7 +27,7 @@ public class Assignment {
 
     private String acceptance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.DETACH)
     private RequestFood requestFood;
 
     @ManyToOne
