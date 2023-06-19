@@ -46,23 +46,20 @@ public class RequestFoodService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member Not Found"));
         requestFood.setDateTime(LocalDateTime.now());
-        if(requestFoodRepository.existsByMember(member)){
-            if(requestFoodRepository.getExistingStatus(member).equals("pending")){
-                throw new RuntimeException("Previous request is still pending!!");
-            }
-        }
         requestFood.setId(UUID.randomUUID().toString().split("-")[0].toUpperCase());
         requestFood.setQuantity(requestFood.getQuantity() + " KG");
         requestFood.setMember(member);
         requestFood.setStatus("pending");
-        return requestFoodRepository.save(requestFood);
+        var savedRequest = requestFoodRepository.save(requestFood);
+        System.out.println(savedRequest);
+        return savedRequest;
     }
 
     public RequestFood updateRequestedFood(RequestFood requestFood, String requestId) {
         RequestFood existingRequest = requestFoodRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("No food requested with the provided id"));
-        if(!existingRequest.getStatus().equals("pending")){
-             throw new RuntimeException("Request has already been " + existingRequest.getStatus());
+        if (!existingRequest.getStatus().equals("pending")) {
+            throw new RuntimeException("Request has already been " + existingRequest.getStatus());
         }
         existingRequest.setFoodType(requestFood.getFoodType());
         existingRequest.setAddress(requestFood.getAddress());
@@ -80,7 +77,7 @@ public class RequestFoodService {
         requestFoodRepository.delete(requestFood);
     }
 
-    public void assignNgo(String requestId , Integer NgoId){
+    public void assignNgo(String requestId, Integer NgoId) {
         RequestFood requestFood = requestFoodRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("No food requested with the provided id"));
         NGO ngo = ngoRepository.findById(NgoId)

@@ -16,7 +16,5 @@ public interface RequestFoodRepository extends JpaRepository<RequestFood , Strin
     List<RequestFood> findByMember(Member member);
 
     boolean existsByMember(Member member);
-
-    @Query("select r.status from RequestFood r where r.member=:member")
-    String getExistingStatus(@Param("member") Member member);
+    
 }

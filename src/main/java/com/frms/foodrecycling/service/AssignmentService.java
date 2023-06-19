@@ -94,7 +94,15 @@ public class AssignmentService {
 
     public void deleteAssignment(Integer assignmentId) {
         Assignment assignment = assignmentRepository.findById(assignmentId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+        if (assignment.getAcceptance().equals("accepted") || assignment.getAcceptance().equals("rejected")) {
+            throw new RuntimeException("Assignment already " + assignment.getAcceptance());
+        }
+        RequestFood requestFood = requestFoodRepository.findById(assignment.getRequestFood().getId())
+                .orElseThrow(() -> new RuntimeException("Requested food not found"));
+        requestFood.setStatus("approved");
+        requestFood.setNgo(null);
+        requestFoodRepository.save(requestFood);
         assignmentRepository.delete(assignment);
     }
 }
