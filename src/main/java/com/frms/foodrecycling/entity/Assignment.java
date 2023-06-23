@@ -21,7 +21,7 @@ public class Assignment {
 
     private String deliveryAddress;
 
-    private String pickupAddress;
+//    private String pickupAddress;
 
     private String foodItems;
 

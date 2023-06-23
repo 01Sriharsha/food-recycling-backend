@@ -40,6 +40,7 @@ public class Donation {
 
     @JsonIgnore
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 
     private String imageName;
