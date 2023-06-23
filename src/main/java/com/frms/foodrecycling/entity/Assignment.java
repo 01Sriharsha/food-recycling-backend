@@ -21,6 +21,8 @@ public class Assignment {
 
     private String deliveryAddress;
 
+    private String pickupAddress;
+
     private String foodItems;
 
     private boolean delivered;
@@ -29,6 +31,9 @@ public class Assignment {
 
     @OneToOne(cascade = CascadeType.DETACH)
     private RequestFood requestFood;
+
+    @OneToOne
+    private Donor donor;
 
     @ManyToOne
     private NGO ngo;

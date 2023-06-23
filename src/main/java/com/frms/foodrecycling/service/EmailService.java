@@ -36,6 +36,11 @@ public class EmailService {
                 Delivery Address: %s
                 Delivery Date: %s
                 Contact Number: %s
+                
+                Pick Up:
+                Donor Name: %s
+                Pickup Address: %s , %s
+                Contact No: %s
                                 
                 This member is currently facing challenges and requires assistance with food supplies. We kindly request your organization's support in delivering essential food items to their location. Your dedication and efforts in helping those in need are greatly appreciated.
                                 
@@ -52,7 +57,11 @@ public class EmailService {
                 assignment.getRequestFood().getMember().getName(),
                 assignment.getRequestFood().getAddress(),
                 assignment.getDeliveryDate(),
-                assignment.getRequestFood().getPhone()
+                assignment.getRequestFood().getPhone()     ,
+                assignment.getDonor().getName(),
+                assignment.getDonor().getAddress(),
+                assignment.getDonor().getCity(),
+                assignment.getDonor().getPhone()
         );
 
         message.setText(body);

@@ -32,13 +32,14 @@ public class AssignmentController {
         return new ResponseEntity<>(assignmentService.getSingleAssignment(assignmentId), HttpStatus.OK);
     }
 
-    @PostMapping("/request/{requestId}/ngos/{NgoId}/assignments")
+    @PostMapping("/request/{requestId}/ngos/{NgoId}/donor/{donorId}/assignments")
     public ResponseEntity<?> registerNewAssignment(
             @RequestBody Assignment assignment,
             @PathVariable Integer NgoId,
+            @PathVariable Integer donorId,
             @PathVariable String requestId
     ) {
-        return new ResponseEntity<>(assignmentService.createAssignment(assignment, NgoId, requestId), HttpStatus.CREATED);
+        return new ResponseEntity<>(assignmentService.createAssignment(assignment, NgoId, requestId, donorId), HttpStatus.CREATED);
     }
 
     @PutMapping("/assignments/{assignmentId}/update/acceptance")

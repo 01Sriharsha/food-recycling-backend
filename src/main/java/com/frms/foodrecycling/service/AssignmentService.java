@@ -1,9 +1,11 @@
 package com.frms.foodrecycling.service;
 
 import com.frms.foodrecycling.entity.Assignment;
+import com.frms.foodrecycling.entity.Donor;
 import com.frms.foodrecycling.entity.NGO;
 import com.frms.foodrecycling.entity.RequestFood;
 import com.frms.foodrecycling.repository.AssignmentRepository;
+import com.frms.foodrecycling.repository.DonorRepository;
 import com.frms.foodrecycling.repository.NgoRepository;
 import com.frms.foodrecycling.repository.RequestFoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +23,25 @@ public class AssignmentService {
     private NgoRepository ngoRepository;
 
     @Autowired
+    private DonorRepository donorRepository;
+
+    @Autowired
     private RequestFoodRepository requestFoodRepository;
 
     @Autowired
     private EmailService emailService;
 
-    public Assignment createAssignment(Assignment assignment, Integer NgoId, String requestId) {
+    public Assignment createAssignment(Assignment assignment, Integer NgoId, String requestId , Integer donorId) {
         NGO ngo = ngoRepository.findById(NgoId)
                 .orElseThrow(() -> new RuntimeException("NGO not found"));
         RequestFood requestFood = requestFoodRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Requested food not found"));
+        Donor donor = donorRepository.findById(donorId)
+                .orElseThrow(() -> new RuntimeException("Donor not found"));
         assignment.setDeliveryDate(assignment.getDeliveryDate());
         assignment.setAcceptance("pending");
         assignment.setNgo(ngo);
+        assignment.setDonor(donor);
         assignment.setRequestFood(requestFood);
         requestFood.setStatus("assigned");
         requestFood.setNgo(ngo);
